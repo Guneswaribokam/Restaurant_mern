@@ -10,10 +10,17 @@ dotenv.config({ path: "./config.env" });
 
 const app = express();
 
-// ✅ Fix CORS config
+// ✅ Log the FRONTEND_URL for debugging (check Render logs)
+console.log("✅ FRONTEND_URL:", process.env.FRONTEND_URL);
+
+// ✅ CORS Configuration
 app.use(
   cors({
-    origin: [process.env.FRONTEND_URL || "http://localhost:5173"],
+    origin: [
+      process.env.FRONTEND_URL || "http://localhost:5173",
+      "https://restaurant-mern-git-main-guneswaris-projects.vercel.app",
+      "http://localhost:3000", // optional fallback for local testing
+    ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
   })
@@ -30,7 +37,7 @@ app.use("/api/v1/reservation", reservationRouter);
 app.get("/", (req, res) => {
   res.status(200).json({
     success: true,
-    message: "HELLO WORLD AGAIN 🚀",
+    message: "HELLO WORLD AGAIN 🚀 Backend is running successfully!",
   });
 });
 
